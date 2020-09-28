@@ -19,6 +19,7 @@ services:
             API_URL: 'https://api.site.example/'
             SECRET_FILEHOST_PATH: 'super-secret-stuff'
             ASSET_URL: 'https://site.example'
+            SHORT_NAME: 'BFH'
 
     nginx:
         image: nginx:latest
