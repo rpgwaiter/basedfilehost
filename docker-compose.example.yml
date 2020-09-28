@@ -1,0 +1,36 @@
+version: '3.7'
+services:
+    app:
+        build:
+            args:
+                user: filehost
+                uid: 1000
+            context: ./
+            dockerfile: Dockerfile
+        restart: unless-stopped
+        working_dir: /var/www/
+        volumes:
+            - ./:/var/www
+        networks:
+            - basedfilehost
+        environment:
+            APP_DEBUG: 'false'
+            APP_URL: 'http://localhost:8000'
+            API_URL: 'https://api.site.example/'
+            SECRET_FILEHOST_PATH: 'super-secret-stuff'
+            ASSET_URL: 'https://site.example'
+
+    nginx:
+        image: nginx:latest
+        restart: unless-stopped
+        ports:
+            - 22504:80
+        volumes:
+            - ./:/var/www
+            - ./docker-compose/nginx:/etc/nginx/conf.d
+        networks:
+            - basedfilehost
+
+networks:
+    basedfilehost:
+        driver: bridge
