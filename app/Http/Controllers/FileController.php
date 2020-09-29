@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Request;
+use Storage;
 
 class FileController extends Controller
 {
@@ -39,10 +39,10 @@ class FileController extends Controller
         });
     }
 
-    public function commandgen($req)
+    public function commandgen()
     {
         $wgetstr = 'wget -m -c -nH -k -w2 -erobots=off %s/%s';
-        return sprintf($wgetstr, env('ASSET_URL'), $req);
+        return sprintf($wgetstr, env('ASSET_URL'), Request::path());
     }
 
 
@@ -78,7 +78,7 @@ class FileController extends Controller
         }
 
         return view('pages.show-files', [
-            "wgetgen"=>$this->commandgen($filereq),
+            "wgetgen"=>$this->commandgen(),
             "parent"=>$apiresp->root,
             "filereq"=>$filereq,
             "totalsize"=>$totalsize,
