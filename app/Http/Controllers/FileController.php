@@ -69,7 +69,7 @@ class FileController extends Controller
 
         # Check for downloaders
         if (strpos($_SERVER['HTTP_USER_AGENT'], 'Wget') !== false) {
-            return view('pages.wget', [
+            return view('pages.downloaders', [
                 "spath"=>env('SECRET_FILEHOST_PATH'),
                 "parent"=>$apiresp->root,
                 "files"=>$files,
