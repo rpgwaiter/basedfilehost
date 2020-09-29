@@ -1,6 +1,6 @@
 <html>
 <body>
-@foreach ($dirs as $fdir)
+@foreach ($dirs as $dir)
     <a href="{{asset("$spath/$parent/$dir->name")}}">{{$dir->name}}</a>
 @endforeach
 @foreach ($files as $file)
