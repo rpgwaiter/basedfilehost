@@ -1,5 +1,4 @@
 // Fonts
-@import url("http://fonts.googleapis.com/css?family=Ubuntu");
 @import "node_modules/font-awesome/scss/font-awesome.scss";
 
 // Variables
@@ -8,7 +7,6 @@
 
 // Required
 @import "node_modules/bootstrap/scss/bootstrap";
-@import "node_modules/bootswatch/dist/solar/_bootswatch.scss";
 
 .small-search {
     width: 100%; /* Full-width */
