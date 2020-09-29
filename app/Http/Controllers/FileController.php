@@ -39,10 +39,10 @@ class FileController extends Controller
         });
     }
 
-    public function commandgen()
+    public function commandgen($req)
     {
-        $wgetstr = 'wget -m -c -nH -k -w2 -erobots=off %s';
-        return sprintf($wgetstr, url()->current());
+        $wgetstr = 'wget -m -c -nH -k -w2 -erobots=off %s/%s';
+        return sprintf($wgetstr, env('ASSET_URL'), $req);
     }
 
 
@@ -78,7 +78,7 @@ class FileController extends Controller
         }
 
         return view('pages.show-files', [
-            "wgetgen"=>$this->commandgen(),
+            "wgetgen"=>$this->commandgen($filereq),
             "parent"=>$apiresp->root,
             "filereq"=>$filereq,
             "totalsize"=>$totalsize,
