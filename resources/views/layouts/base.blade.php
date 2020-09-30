@@ -10,8 +10,9 @@
 <div class="container">
     @yield('content')
 </div>
-
-@include('includes.pagescript')
+@if(count(explode('/', url()->current())) > 4)
+    @include('includes.pagescript')
+@endif
 
 </body>
 </html>

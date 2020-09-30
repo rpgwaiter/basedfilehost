@@ -12,7 +12,7 @@
         <tr>
             <th class="sortable">Filename</th>
             <th class="sortable">Date Added</th>
-            <th>Size</th>
+            <th class="sortable">Size</th>
         </tr>
         </thead>
         <tbody>
