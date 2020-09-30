@@ -11,5 +11,7 @@
     @yield('content')
 </div>
 
+@include('includes.pagescript')
+
 </body>
 </html>

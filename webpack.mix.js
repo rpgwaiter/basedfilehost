@@ -15,5 +15,6 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css');
 
 mix.scripts([
-    'resources/js/filehost.js'
+    'resources/js/filehost.js',
+    'resources/js/tablesort.js',
 ], 'public/js/filehost.js');
