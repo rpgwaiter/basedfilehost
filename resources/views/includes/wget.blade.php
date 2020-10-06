@@ -1,5 +1,4 @@
-<br>
-<div class="input-group">
+<div class="input-group py-3">
     <input type="text" class="form-control" value='{{$wgetgen}}' id="copy-input">
     <span class="input-group-btn">
         <button class="btn btn-default" type="button" id="copy-button"
