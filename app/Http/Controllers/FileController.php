@@ -41,7 +41,7 @@ class FileController extends Controller
 
     public function commandgen()
     {
-        $wgetstr = 'wget -m -c -nH -k -w2 -erobots=off %s/%s';
+        $wgetstr = 'wget -m -c -nH -k -w2 -erobots=off "%s/%s"';
         return sprintf($wgetstr, env('ASSET_URL'), Request::path());
     }
 
