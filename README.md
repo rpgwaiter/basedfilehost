@@ -24,7 +24,7 @@ nano docker-compose.yml
 Important variables to keep in mind:
 
 - API_URL: Points to your hosted instance of [basedapi](https://github.com/rpgwaiter/basedapi)
-- SECRET_FILEHOST_PATH: Subpath to your files. ()
+- SECRET_FILEHOST_PATH: Subpath to your files.
 - SHORT_NAME: Shows up in the tab name in your browser
 
 Once docker-compose.yml is ready to do, bring the project up.
