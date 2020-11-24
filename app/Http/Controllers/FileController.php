@@ -45,6 +45,13 @@ class FileController extends Controller
         return sprintf($wgetstr, env('ASSET_URL'), Request::path());
     }
 
+    public static function encPar($s) // Encode Parenthesis
+    {
+        $s1 = str_replace('(', "%28", $s);
+        $s2 = str_replace(')', "%29", $s1);
+        return $s2;
+    }
+
 
     public function index($filereq = "/")
     {
@@ -79,6 +86,9 @@ class FileController extends Controller
 
         return view('pages.show-files', [
             "wgetgen"=>$this->commandgen(),
+            "encPar"=>function($s) {
+                return str_replace('(', "%28", str_replace(')', "%29", $s)); // nested replace, very cool
+            },
             "parent"=>$apiresp->root,
             "filereq"=>$filereq,
             "totalsize"=>$totalsize,
