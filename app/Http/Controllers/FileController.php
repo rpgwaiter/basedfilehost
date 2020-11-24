@@ -52,6 +52,14 @@ class FileController extends Controller
         return $s2;
     }
 
+    function strposa($haystack, $needle, $offset=0) {
+        if(!is_array($needle)) $needle = array($needle);
+        foreach($needle as $query) {
+            if(strpos($haystack, $query, $offset) !== false) return true; // stop on first true result
+        }
+        return false;
+    }
+
 
     public function index($filereq = "/")
     {
@@ -75,7 +83,8 @@ class FileController extends Controller
         }
 
         # Check for downloaders
-        if (strpos($_SERVER['HTTP_USER_AGENT'], 'Wget') !== false) {
+        $downloaders = array('Wget', 'JDownloader');
+        if ($this->strposa($_SERVER['HTTP_USER_AGENT'], $downloaders) !== false) {
             return view('pages.downloaders', [
                 "spath"=>env('SECRET_FILEHOST_PATH'),
                 "parent"=>$apiresp->root,
