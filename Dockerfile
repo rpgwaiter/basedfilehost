@@ -31,7 +31,4 @@ RUN mkdir -p /home/$user/.composer && \
 # Set working directory
 WORKDIR /var/www
 
-# Copy the stuff
-COPY .  /var/www
-
 USER $user
