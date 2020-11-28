@@ -3,6 +3,7 @@
 Host your files discretely! 
 Meant to be used with [basedapi](https://github.com/rpgwaiter/basedapi). 
 Built with [Laravel Livewire](https://github.com/livewire/livewire).
+Find us on [DockerHub!](https://hub.docker.com/r/rpgwaiter/basedfilehost)
 
 ## Table of Contents
 
