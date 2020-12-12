@@ -25,7 +25,7 @@ in
 
     options.services.basedfilehost = with types; {
 
-      enable = mkEnableOption "Laravel example";
+      enable = mkEnableOption "BasedFileHost service";
 
       hostName = mkOption {
         type = str;
@@ -51,7 +51,135 @@ in
         '';
       };
 
-      database = {
+      # database = {
+
+      #   createLocally = mkOption {
+      #     type = bool;
+      #     default = true;
+      #     description = "Whether database should declared by module.";
+      #   };
+
+      #   host = mkOption {
+      #     type = str;
+      #     default = "127.0.0.1";
+      #     description = "Database host address.";
+      #   };
+
+      #   socket = mkOption {
+      #     type = nullOr path;
+      #     default = if cfg.database.createLocally then "/run/mysqld/mysqld.sock" else null;
+      #     defaultText = "/run/mysqld/mysqld.sock";
+      #     description = "Path to the unix socket file to use for authentication.";
+      #   };
+
+      #   port = mkOption {
+      #     type = port;
+      #     default = 3306;
+      #     description = "Database port.";
+      #   };
+
+      #   name = mkOption {
+      #     type = str;
+      #     default = "basedfilehost";
+      #     description = "Database name.";
+      #   };
+
+      #   username = mkOption {
+      #     type = str;
+      #     default = "basedfilehost";
+      #     description = "Database user.";
+      #   };
+
+      #   password = mkOption {
+      #     type = nullOr str;
+      #     default = null;
+      #     description = ''
+      #       Database password.  Use <literal>passwordFile</literal> to avoid this
+      #       being world-readable in the <literal>/nix/store</literal>.
+      #     '';
+      #   };
+
+      #   passwordFile = mkOption {
+      #     type = nullOr path;
+      #     default = null;
+      #     example = "/run/keys/basedfilehost-dbpassword";
+      #     description = ''
+      #       A file containing the password corresponding to
+      #       <option>database.username</option>.
+      #     '';
+      #   };
+
+      #   seed = mkOption {
+      #     type = bool;
+      #     default = false;
+      #     description = "Whether database should be seeded.";
+      #   };
+      # };
+
+      app = {
+
+        storage = {
+
+          createLocally = mkOption {
+            type = bool;
+            default = true;
+            description = "Whether storage should declared by module.";
+          };
+
+          path = mkOption {
+            type = str;
+            default = "/var/basedfilehost";
+            description = "Path to laravel storage location.";
+          };
+        };
+
+        shortName = mkOption {
+          type = nullOr str;
+          default = "BFH";
+          description = ''
+            Shortened site name used in the title of each page.
+          '';
+        };
+
+        key = mkOption {
+          type = nullOr str;
+          default = null;
+          description = ''
+            App key.  Use <literal>keyFile</literal> to avoid this
+            being world-readable in the <literal>/nix/store</literal>.
+          '';
+        };
+
+        keyFile = mkOption {
+          type = nullOr path;
+          default = null;
+          example = "/run/keys/basedfilehost";
+          description = "A file containing the app key.";
+        };
+      };
+    };
+
+    # implementation
+
+    config = mkIf cfg.enable {
+
+      assertions = [
+        {
+          assertion = !(cfg.app.key != null && cfg.app.keyFile != null);
+          message = "Please specify no more than one of key or keyFile";
+        }
+        {
+          assertion = !(cfg.database.password != null && cfg.database.passwordFile != null);
+          message = "Please specify no more than one of password or passwordFile";
+        }
+        {
+          assertion = cfg.database.createLocally -> cfg.database.username == user;
+          message = "services.basedfilehost.database.username must be set to ${user} if services.basedfilehost.database.createLocally is set true";
+        }
+        { assertion = cfg.database.createLocally -> cfg.database.socket != null;
+          message = "services.basedfilehost.database.socket must be set if services.basedfilehost.database.createLocally is set to true";
+        }
+        {database = {
 
         createLocally = mkOption {
           type = bool;
@@ -115,65 +243,7 @@ in
           description = "Whether database should be seeded.";
         };
       };
-
-      app = {
-
-        storage = {
-
-          createLocally = mkOption {
-            type = bool;
-            default = true;
-            description = "Whether storage should declared by module.";
-          };
-
-          path = mkOption {
-            type = str;
-            default = "/var/basedfilehost";
-            description = "Path to laravel storage location.";
-          };
-        };
-
-        key = mkOption {
-          type = nullOr str;
-          default = null;
-          description = ''
-            App key.  Use <literal>keyFile</literal> to avoid this
-            being world-readable in the <literal>/nix/store</literal>.
-          '';
-        };
-
-        keyFile = mkOption {
-          type = nullOr path;
-          default = null;
-          example = "/run/keys/basedfilehost";
-          description = "A file containing the app key.";
-        };
-      };
-    };
-
-    # implementation
-
-    config = mkIf cfg.enable {
-
-      assertions = [
-        {
-          assertion = !(cfg.app.key != null && cfg.app.keyFile != null);
-          message = "Please specify no more than one of key or keyFile";
-        }
-        {
-          assertion = !(cfg.database.password != null && cfg.database.passwordFile != null);
-          message = "Please specify no more than one of password or passwordFile";
-        }
-        {
-          assertion = cfg.database.createLocally -> cfg.database.username == user;
-          message = "services.basedfilehost.database.username must be set to ${user} if services.basedfilehost.database.createLocally is set true";
-        }
-        { assertion = cfg.database.createLocally -> cfg.database.socket != null;
-          message = "services.basedfilehost.database.socket must be set if services.basedfilehost.database.createLocally is set to true";
-        }
-        {
-          assertion = cfg.database.createLocally -> cfg.database.password == null;
-          message = "a password cannot be specified if services.basedfilehost.database.createLocally is set to true";
+         message = "a password cannot be specified if services.basedfilehost.database.createLocally is set to true";
         }
       ];
 
