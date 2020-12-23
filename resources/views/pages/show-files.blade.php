@@ -25,4 +25,10 @@
     </table>
 
     @include('includes.wget')
+
+    <div class="page-footer py-3">s
+        <p>{{json_decode(file_get_contents(env('API_URL') . "message" ))->message}}</p>
+    </div>
+
+
 @endsection

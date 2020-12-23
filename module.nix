@@ -28,12 +28,15 @@ in
       enable = mkEnableOption "BasedFileHost service";
 
       hostName = mkOption {
+
         type = str;
         default = "localhost";
         description = "Web hostname.";
+
       };
 
       virtualHost = mkOption {
+
         type = nullOr (submodule (import <nixpkgs/nixos/modules/services/web-servers/apache-httpd/vhost-options.nix>));
         example = literalExample ''
           {
@@ -49,6 +52,7 @@ in
           Apache configuration can be done by adapting <option>services.httpd.virtualHosts</option>.
           See <xref linkend="opt-services.httpd.virtualHosts"/> for further information.
         '';
+        
       };
 
       # database = {
