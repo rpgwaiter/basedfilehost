@@ -26,7 +26,7 @@
 
     @include('includes.wget')
 
-    <div class="page-footer py-3">s
+    <div class="page-footer py-3">
         <p>{{json_decode(file_get_contents(env('API_URL') . "message" ))->message}}</p>
     </div>
 
