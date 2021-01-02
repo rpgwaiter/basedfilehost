@@ -1,16 +1,21 @@
 {
   description = "A flake for BasedFileHost";
 
-  inputs.flake-compat = {
-    url = "github:edolstra/flake-compat";
-    flake = false;
-  };
+  inputs =
+    {
+      nixos.url = "nixpkgs/release-20.09";
+    };
 
-  outputs = { self, nixpkgs, flake-compat }: {
+  outputs = { self, nixpkgs }: 
+  let 
+    pkgs = nixpkgs.pkgs;
+    lib = nixpkgs.lib;
+    appPackage = nixpkgs.appPackage;
+  in {
 
-    packages.x86_64-linux.hello = nixpkgs.legacyPackages.x86_64-linux.hello;
+    packages.x86_64-linux.nginx = nixpkgs.legacyPackages.x86_64-linux.nginx;
 
-    defaultPackage.x86_64-linux = self.packages.x86_64-linux.hello;
+    defaultPackage.x86_64-linux = self.packages.x86_64-linux.nginx;
 
   };
 }
