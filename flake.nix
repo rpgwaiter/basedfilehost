@@ -3,7 +3,7 @@
 
   inputs =
     {
-      nixos.url = "nixpkgs/release-20.09";
+      nixpkgs.url = "nixpkgs/release-20.09";
     };
 
   outputs = { self, nixpkgs }: 
