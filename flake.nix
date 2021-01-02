@@ -13,11 +13,6 @@
     appPackage = nixpkgs.appPackage;
   in {
 
-    builtins.trace "Nixpkgs version: ${lib.version}"
-    builtins.trace "Use local files: ${lib.boolToString localFiles}"
-
-    appPackage
-
     packages.x86_64-linux.nginx = nixpkgs.legacyPackages.x86_64-linux.nginx;
 
     defaultPackage.x86_64-linux = self.packages.x86_64-linux.nginx;
